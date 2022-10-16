@@ -1,0 +1,19 @@
+button_twist_controller:
+  joint: button_twist_joint
+  pid:
+    d: 0.01
+    i: 0
+    p: 0.05
+  type: effort_controllers/JointPositionController
+
+button_push_controller:
+  joint: button_push_joint
+  pid:
+    d: 5.0
+    i: 0
+    p: 5.0
+  type: effort_controllers/JointPositionController
+
+button_joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100

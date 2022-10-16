@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot>
+
+    <!-- ROS Control Plugin -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <!-- <robotNamespace>/handle</robotNamespace> -->
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        </plugin>
+    </gazebo>
+
+
+    <!-- Handle Base -->
+    <gazebo reference="base">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- Handle Neck -->
+    <gazebo reference="neck">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- Handle Ring -->
+    <gazebo reference="ring">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+    <!-- Handle Grip -->
+    <gazebo reference="grip">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+</robot>
