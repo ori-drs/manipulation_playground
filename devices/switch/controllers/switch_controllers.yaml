@@ -1,0 +1,11 @@
+switch_controller:
+  joint: switch_joint
+  pid:
+    p: 0.05
+    i: 0
+    d: 0.01
+  type: effort_controllers/JointPositionController
+
+switch_joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100
