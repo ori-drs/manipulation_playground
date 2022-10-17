@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <!-- Switch ID -->
+  <arg name="HNF361_safety_switch_ID" default="0"/>
+
+  <!-- Pose for Spawn -->
+  <arg name="x" default="1.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="1.0"/>
+  <arg name="R" default="0.0"/>
+  <arg name="P" default="0.0"/>
+  <arg name="Y" default="0.0"/>
+
+  <group ns="HNF361_safety_switch">
+    <group ns="$(arg HNF361_safety_switch_ID)">
+
+      <!-- Load switch description file -->
+      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.urdf.xacro'"/>
+      <param name="tf_prefix" value="switch/$(arg HNF361_safety_switch_ID)" />
+
+      <!-- Spawn switch -->
+      <node name="HNF361_safety_switch_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+      args="-urdf -param robot_description -model HNF361_safety_switch -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+
+      <!-- State publisher -->
+      <node name="HNF361_safety_switch_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="100.0"/>
+      </node>
+
+      <!-- Controllers -->
+      <rosparam file="$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/controllers/HNF361_safety_switch_controllers.yaml" command="load"/>
+      
+      <node name="HNF361_safety_switch_controllers_spawner" pkg="controller_manager" type="controller_manager"
+      args="spawn HNF361_safety_switch_joint_state_controller HNF361_safety_switch_controller" respawn="false" output="screen"/>
+
+      <!-- Actuation node -->
+      <node pkg="manipulation_playground_articulated_devices" name="HNF361_safety_switch_actuation_node" type="HNF361_safety_switch_actuation_node.py" output="screen"/>
+
+      <!-- Transform broadcaster -->
+      <node pkg="tf2_ros" type="static_transform_publisher" name="switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom HNF361_safety_switch/$(arg HNF361_safety_switch_ID)/world"/>
+    </group>
+  </group>
+
+</launch>

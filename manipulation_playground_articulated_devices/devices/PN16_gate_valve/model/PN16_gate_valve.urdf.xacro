@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!-- Interactable PN16 Gate Valve -->
+<robot name="PN16_gate_valve" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Dimensions for Inertias -->
+    <!-- Base -->
+    <xacro:property name="width1" value="0.5"/>
+    <xacro:property name="height1" value="0.1"/>
+    <xacro:property name="mass1" value="0.5"/>
+
+    <!-- Handle -->
+    <xacro:property name="length2" value="0.01"/>
+    <xacro:property name="radius2" value="0.03"/>
+    <xacro:property name="mass2" value="0.05"/>
+
+
+    <!-- Import all Gazebo-customization elements -->
+    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/PN16_gate_valve/model/PN16_gate_valve.gazebo" />
+    
+    
+    <!-- Used to fix switch to world -->
+    <link name="world"/>
+
+    <joint name="gate_valve_base_to_world" type="fixed">
+        <parent link="world"/>
+        <child link="base"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- Gate Valve Base -->
+    <link name="base">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_base.dae"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_base.dae"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+            <mass value="${mass1}"/>
+            <inertia
+                ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass1 / 12.0 * (height1*height1 + width1*width1)}" iyz="0.0"
+                izz="${mass1 / 12.0 * (width1*width1 + width1*width1)}"/>
+        </inertial>
+    </link>
+
+
+    <!-- Needle Valve Joint -->
+    <joint name="gate_valve_joint" type="continuous">
+        <parent link="base"/>
+        <child link="handle"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <dynamics damping="0.0" friction="10.0" />
+        <limit effort="100" velocity="0.5" />
+    </joint>
+
+    <transmission name="gate_valve_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gate_valve_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gate_valve_actuator">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+
+    <!-- Gate Valve Handle -->
+    <link name="handle">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${mass2}"/>
+            <inertia
+                ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"
+                iyy="${mass2 / 2.0 * (radius2*radius2)}" iyz="0.0"
+                izz="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}"/>
+        </inertial>
+    </link>
+
+
+</robot>
