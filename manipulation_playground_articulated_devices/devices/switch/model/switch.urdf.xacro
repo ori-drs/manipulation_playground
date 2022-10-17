@@ -24,9 +24,9 @@
 
 
     <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-    <xacro:include filename="$(find manipulation_playground)/devices/switch/model/switch.gazebo" />
+    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/switch/model/switch.gazebo" />
     <!-- Import Rviz colors -->
-    <xacro:include filename="$(find manipulation_playground)/devices/switch/model/materials.xacro" />
+    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/switch/model/materials.xacro" />
 
 
     <!-- Used to fix switch to world -->

@@ -16,7 +16,7 @@
     <group ns="$(arg handle_ID)">
 
       <!-- Load handle description file -->
-      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground)/devices/handle/model/handle.urdf.xacro'"/>
+      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/handle/model/handle.urdf.xacro'"/>
       <param name="tf_prefix" value="handle/$(arg handle_ID)" />
 
       <!-- Spawn handle -->
@@ -29,7 +29,7 @@
       </node>
 
       <!-- Controllers -->
-      <rosparam file="$(find manipulation_playground)/devices/handle/controllers/handle_controllers.yaml" command="load"/>
+      <rosparam file="$(find manipulation_playground_articulated_devices)/devices/handle/controllers/handle_controllers.yaml" command="load"/>
       
       <node name="handle_controllers_spawner" pkg="controller_manager" type="controller_manager"
       args="spawn handle_joint_state_controller handle_controller" respawn="false" output="screen"/>

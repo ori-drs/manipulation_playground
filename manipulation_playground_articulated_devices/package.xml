@@ -1,7 +1,7 @@
 <package>
-  <name>manipulation_playground</name>
+  <name>manipulation_playground_articulated_devices</name>
   <version>0.1.0</version>
-  <description>manipulation_playground</description>
+  <description>manipulation_playground_articulated_devices</description>
   <maintainer email="jacques.cloete@trinity.ox.ac.uk">Jacques Cloete</maintainer>
 
   <license>BSD</license>
