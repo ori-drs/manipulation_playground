@@ -1,48 +1,44 @@
 <?xml version="1.0"?>
-<!-- Interactable Handle -->
-<robot name="handle" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<!-- Actuated Button -->
+<robot name="button" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- Constants for handle dimensions -->
+    <!-- Constants for button dimensions -->
 
     <!-- Base -->
-    <xacro:property name="width" value="0.1"/>
-    <xacro:property name="height1" value="0.02"/>
-    <xacro:property name="mass1" value="1"/>
+    <xacro:property name="width" value="0.06"/>
+    <xacro:property name="height1" value="0.05"/>
+    <xacro:property name="mass1" value="0.5"/>
 
-    <!-- Neck -->
-    <xacro:property name="length2" value="0.04"/>
-    <xacro:property name="radius2" value="0.02"/>
-    <xacro:property name="mass2" value="0.5"/>
 
-    <!-- Ring -->
-    <xacro:property name="length3" value="0.035"/>
-    <xacro:property name="radius3" value="0.149"/>
-    <xacro:property name="mass3" value="1"/>
+    <!-- Shaft -->
+    <xacro:property name="length2" value="0.011"/>
+    <xacro:property name="radius2" value="0.014"/>
+    <xacro:property name="mass2" value="0.2"/>
 
-    <!-- Grip -->
-    <xacro:property name="length4" value="0.093"/>
-    <xacro:property name="radius4" value="0.014"/>
-    <xacro:property name="mass4" value="0.1"/>
-    <xacro:property name="grip_offset_from_edge" value="0.016"/>
+
+    <!-- Top -->
+    <xacro:property name="length3" value="0.014"/>
+    <xacro:property name="radius3" value="0.0165"/>
+    <xacro:property name="mass3" value="0.1"/>
 
 
     <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-    <xacro:include filename="$(find manipulation_playground)/devices/handle/model/handle.gazebo" />
+    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/button/model/button.gazebo" />
     <!-- Import Rviz colors -->
-    <xacro:include filename="$(find manipulation_playground)/devices/handle/model/materials.xacro" />
+    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/button/model/materials.xacro" />
 
 
-    <!-- Used to fix handle to world -->
+    <!-- Used to fix button to world -->
     <link name="world"/>
 
-    <joint name="handle_base_to_world" type="fixed">
+    <joint name="button_base_to_world" type="fixed">
         <parent link="world"/>
         <child link="base"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
 
-    <!-- Handle Base -->
+    <!-- Button Base -->
     <link name="base">
         <collision>
             <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
@@ -56,7 +52,7 @@
             <geometry>
                 <box size="${width} ${width} ${height1}"/>
             </geometry>
-            <material name="grey"/>
+            <material name="yellow"/>
         </visual>
 
         <inertial>
@@ -70,30 +66,30 @@
     </link>
 
 
-    <!-- Handle Joint -->
-    <joint name="handle_joint" type="continuous">
+    <!-- Button Twist Joint -->
+    <joint name="button_twist_joint" type="revolute">
         <parent link="base"/>
-        <child link="neck"/>
+        <child link="shaft"/>
         <origin xyz="0 0 ${height1}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
-        <dynamics damping="1.0" friction="0.0" />
-        <limit effort="100" velocity="10" />
+        <dynamics damping="0.0" friction="0.0" />
+        <limit effort="100" lower="-1.5707" upper="0" velocity="0.5" />
     </joint>
 
-    <transmission name="handle_trans">
+    <transmission name="button_twist_trans">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="handle_joint">
+        <joint name="button_twist_joint">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
-        <actuator name="handle_actuator">
+        <actuator name="button_twist_actuator">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
 
 
-    <!-- Handle Neck -->
-    <link name="neck">
+    <!-- Button Shaft -->
+    <link name="shaft">
         <collision>
             <origin xyz="0 0 ${length2/2}" rpy="0 0 0"/>
             <geometry>
@@ -106,7 +102,7 @@
             <geometry>
                 <cylinder radius="${radius2}" length="${length2}"/>
             </geometry>
-            <material name="grey"/>
+            <material name="red"/>
         </visual>
 
         <inertial>
@@ -119,15 +115,31 @@
         </inertial>
     </link>
 
-    <joint name="handle_neck_to_ring" type="fixed">
-        <parent link="neck"/>
-        <child link="ring"/>
+
+    <!-- Button Push Joint -->
+    <joint name="button_push_joint" type="prismatic">
+        <parent link="shaft"/>
+        <child link="top"/>
         <origin xyz="0 0 ${length2}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="0.0" friction="0.0" />
+        <limit effort="100" lower="-0.005" upper="0" velocity="0.5" />
     </joint>
 
+    <transmission name="button_push_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="button_push_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="button_push_actuator">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
 
-    <!-- Handle Ring -->
-    <link name="ring">
+
+    <!-- Button Top -->
+    <link name="top">
         <collision>
             <origin xyz="0 0 ${length3/2}" rpy="0 0 0"/>
             <geometry>
@@ -140,7 +152,7 @@
             <geometry>
                 <cylinder radius="${radius3}" length="${length3}"/>
             </geometry>
-            <material name="dark_grey"/>
+            <material name="red"/>
         </visual>
 
         <inertial>
@@ -150,45 +162,6 @@
                 ixx="${mass3 / 12.0 * (3.0*radius3*radius3 + length3*length3)}" ixy="0.0" ixz="0.0"
                 iyy="${mass3 / 12.0 * (3.0*radius3*radius3 + length3*length3)}" iyz="0.0"
                 izz="${mass3 / 2.0 * (radius3*radius3)}"/>
-        </inertial>
-    </link>
-
-
-    <!-- Handle Grip Joint -->
-    <joint name="handle_ring_to_grip" type="fixed">
-        <parent link="ring"/>
-        <child link="grip"/>
-        <origin xyz="0 ${radius3-radius4-grip_offset_from_edge} ${length3}" rpy="0 0 0"/>
-        <!-- <axis xyz="0 0 1"/>
-        <dynamics damping="1.0" friction="0.0" />
-        <limit effort="100" velocity="10" /> -->
-    </joint>
-
-
-    <!-- Handle Grip -->
-    <link name="grip">
-        <collision>
-            <origin xyz="0 0 ${length4/2}" rpy="0 0 0"/>
-            <geometry>
-                <cylinder radius="${radius4}" length="${length4}"/>
-            </geometry>
-        </collision>
-
-        <visual>
-            <origin xyz="0 0 ${length4/2}" rpy="0 0 0"/>
-            <geometry>
-                <cylinder radius="${radius4}" length="${length4}"/>
-            </geometry>
-            <material name="dark_grey"/>
-        </visual>
-
-        <inertial>
-            <origin xyz="0 0 ${length4/2}" rpy="0 0 0"/>
-            <mass value="${mass4}"/>
-            <inertia
-                ixx="${mass4 / 12.0 * (3.0*radius4*radius4 + length4*length4)}" ixy="0.0" ixz="0.0"
-                iyy="${mass4 / 12.0 * (3.0*radius4*radius4 + length4*length4)}" iyz="0.0"
-                izz="${mass4 / 2.0 * (radius4*radius4)}"/>
         </inertial>
     </link>
 

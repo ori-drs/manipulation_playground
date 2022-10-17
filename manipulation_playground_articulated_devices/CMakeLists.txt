@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(manipulation_playground)
+project(manipulation_playground_articulated_devices)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp

@@ -16,7 +16,7 @@
     <group ns="$(arg switch_ID)">
 
       <!-- Load switch description file -->
-      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground)/devices/switch/model/switch.urdf.xacro'"/>
+      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/switch/model/switch.urdf.xacro'"/>
       <param name="tf_prefix" value="switch/$(arg switch_ID)" />
 
       <!-- Spawn switch -->
@@ -29,13 +29,13 @@
       </node>
 
       <!-- Controllers -->
-      <rosparam file="$(find manipulation_playground)/devices/switch/controllers/switch_controllers.yaml" command="load"/>
+      <rosparam file="$(find manipulation_playground_articulated_devices)/devices/switch/controllers/switch_controllers.yaml" command="load"/>
       
       <node name="switch_controllers_spawner" pkg="controller_manager" type="controller_manager"
       args="spawn switch_joint_state_controller switch_controller" respawn="false" output="screen"/>
 
       <!-- Actuation node -->
-      <node pkg="manipulation_playground" name="switch_actuation_node" type="switch_actuation_node.py" output="screen"/>
+      <node pkg="manipulation_playground_articulated_devices" name="switch_actuation_node" type="switch_actuation_node.py" output="screen"/>
 
       <!-- Transform broadcaster -->
       <node pkg="tf2_ros" type="static_transform_publisher" name="switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom switch/$(arg switch_ID)/world"/>
