@@ -11,7 +11,7 @@
     <!-- Handle -->
     <xacro:property name="length2" value="0.01"/>
     <xacro:property name="radius2" value="0.03"/>
-    <xacro:property name="mass2" value="0.05"/>
+    <xacro:property name="mass2" value="1"/>
 
 
     <!-- Import all Gazebo-customization elements -->
@@ -31,14 +31,14 @@
     <!-- Needle Valve Base -->
     <link name="base">
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0.01" rpy="-1.5708 0 -1.5708"/>
             <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_base.dae"/>
+                <box size="0.065 0.05 0.03"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_base.dae"/>
             </geometry>
@@ -59,9 +59,9 @@
     <joint name="needle_valve_joint" type="continuous">
         <parent link="base"/>
         <child link="handle"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
-        <dynamics damping="0.0" friction="10.0" />
+        <origin xyz="0 0 0.071" rpy="0 0 0"/> <!-- 0.071 -->
+        <axis xyz="0 0 1"/>
+        <dynamics damping="0.0" friction="0.01" />
         <limit effort="100" velocity="0.5" />
     </joint>
 
@@ -71,7 +71,6 @@
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="needle_valve_actuator">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
@@ -80,14 +79,14 @@
     <!-- Needle Valve Handle -->
     <link name="handle">
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 -1.5708 0"/>
             <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_handle.dae"/>
+                <cylinder radius="0.0063" length="0.055"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 -0.071" rpy="-1.5708 0 -1.5708"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_handle.dae"/>
             </geometry>
@@ -98,10 +97,8 @@
             <mass value="${mass2}"/>
             <inertia
                 ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"
-                iyy="${mass2 / 2.0 * (radius2*radius2)}" iyz="0.0"
-                izz="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}"/>
+                iyy="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" iyz="0.0"
+                izz="${mass2 / 2.0 * (radius2*radius2)}"/>
         </inertial>
     </link>
-
-
 </robot>

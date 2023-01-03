@@ -1,7 +1,7 @@
 switch_controller:
   joint: switch_joint
   pid:
-    p: 0.05
+    p: 0.03
     i: 0
     d: 0.01
   type: effort_controllers/JointPositionController
