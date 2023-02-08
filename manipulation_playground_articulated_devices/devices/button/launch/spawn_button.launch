@@ -32,7 +32,7 @@
       <rosparam file="$(find manipulation_playground_articulated_devices)/devices/button/controllers/button_controllers.yaml" command="load"/>
       
       <node name="button_controllers_spawner" pkg="controller_manager" type="controller_manager"
-      args="spawn button_joint_state_controller button_twist_controller button_push_controller" respawn="false" output="screen"/>
+      args="spawn button_joint_state_controller button_twist_controller button_controller" respawn="false" output="screen"/>
 
       <!-- Actuation node -->
       <node pkg="manipulation_playground_articulated_devices" name="button_actuation_node" type="button_actuation_node.py" output="screen"/>

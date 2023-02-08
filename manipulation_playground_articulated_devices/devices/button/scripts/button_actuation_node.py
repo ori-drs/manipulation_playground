@@ -6,7 +6,7 @@ from std_msgs.msg import Bool, Float64
 
 
 bool_pub = rospy.Publisher('activated', Bool, queue_size=1)
-command_pub = rospy.Publisher('button_push_controller/command', Float64, queue_size = 10)
+command_pub = rospy.Publisher('button_controller/command', Float64, queue_size = 10)
 
 activated = Bool(False)
 joint_target = Float64()
