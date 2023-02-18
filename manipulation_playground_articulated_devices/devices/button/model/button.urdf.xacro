@@ -102,7 +102,7 @@
             <geometry>
                 <cylinder radius="${radius2}" length="${length2}"/>
             </geometry>
-            <material name="red"/>
+            <material name="black"/>
         </visual>
 
         <inertial>
@@ -116,30 +116,30 @@
     </link>
 
 
-    <!-- Button Push Joint -->
-    <joint name="button_push_joint" type="prismatic">
+    <!-- Button (Push) Joint -->
+    <joint name="button_joint" type="prismatic">
         <parent link="shaft"/>
-        <child link="top"/>
+        <child link="handle"/>
         <origin xyz="0 0 ${length2}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="0.0" />
         <limit effort="100" lower="-0.005" upper="0" velocity="0.5" />
     </joint>
 
-    <transmission name="button_push_trans">
+    <transmission name="button_trans">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="button_push_joint">
+        <joint name="button_joint">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
-        <actuator name="button_push_actuator">
+        <actuator name="button_actuator">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
 
 
-    <!-- Button Top -->
-    <link name="top">
+    <!-- Button Handle (Top) -->
+    <link name="handle">
         <collision>
             <origin xyz="0 0 ${length3/2}" rpy="0 0 0"/>
             <geometry>
