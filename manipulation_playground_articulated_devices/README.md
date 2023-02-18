@@ -1,6 +1,6 @@
 # manipulation_playground_articulated_devices
 
-![Devices Currently Implemented](/devices/currently_implemented_devices.png)
+![Devices Currently Implemented](/manipulation_playground_articulated_devices/devices/currently_implemented_devices.png)
 
 A set of manipulation models for actuated devices used in the lab. Static and actuated models for visualisation and simulation in RViz and Gazebo.
 
