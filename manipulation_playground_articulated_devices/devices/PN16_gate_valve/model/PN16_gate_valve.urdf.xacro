@@ -31,21 +31,21 @@
     <!-- Gate Valve Base -->
     <link name="base">
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_base.dae"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_base.dae"/>
             </geometry>
         </visual>
 
         <inertial>
-            <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+            <origin xyz="0 0 ${height1/2}" rpy="-1.5708 0 0"/>
             <mass value="${mass1}"/>
             <inertia
                 ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
@@ -60,7 +60,7 @@
         <parent link="base"/>
         <child link="handle"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
+        <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="10.0" />
         <limit effort="100" velocity="0.5" />
     </joint>
@@ -80,21 +80,21 @@
     <!-- Gate Valve Handle -->
     <link name="handle">
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
             </geometry>
         </visual>
 
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
             <mass value="${mass2}"/>
             <inertia
                 ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"
