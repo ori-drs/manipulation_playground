@@ -102,7 +102,7 @@
             <geometry>
                 <cylinder radius="${radius2}" length="${length2}"/>
             </geometry>
-            <material name="red"/>
+            <material name="black"/>
         </visual>
 
         <inertial>
