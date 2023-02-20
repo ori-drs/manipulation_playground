@@ -16,8 +16,8 @@
         <mu2>0.2</mu2>
     </gazebo>
 
-    <!-- Switch Head -->
-    <gazebo reference="head">
+    <!-- Switch Lever -->
+    <gazebo reference="lever">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>

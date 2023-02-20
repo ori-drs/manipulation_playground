@@ -1,5 +1,18 @@
 # manipulation_playground_articulated_devices
-A set of manipulation models for actuated devices used in the lab. Static and actuated models for visualisation and simulation.
+
+![Devices Currently Implemented](/manipulation_playground_articulated_devices/devices/currently_implemented_devices.png)
+
+A set of manipulation models for actuated devices used in the lab. Static and actuated models for visualisation and simulation in RViz and Gazebo.
+
+Currently implemented:
+- needle_valve
+- PN16_gate_valve
+- DN40_globe_valve
+- VDL_6_20_110_ball_valve
+- HNF361_safety_switch
+- button
+- switch
+- handle
 
 To spawn a model in Gazebo simulation, simply include the corresponding `..._spawn.launch` file in your launch file, with the model ID and pose as input arguments. An example for spawning a button is provided below:
 ```xml

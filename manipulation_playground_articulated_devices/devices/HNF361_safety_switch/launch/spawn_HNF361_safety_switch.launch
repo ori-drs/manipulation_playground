@@ -17,7 +17,7 @@
 
       <!-- Load switch description file -->
       <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.urdf.xacro'"/>
-      <param name="tf_prefix" value="switch/$(arg HNF361_safety_switch_ID)" />
+      <param name="tf_prefix" value="HNF361_safety_switch/$(arg HNF361_safety_switch_ID)" />
 
       <!-- Spawn switch -->
       <node name="HNF361_safety_switch_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
@@ -38,7 +38,7 @@
       <node pkg="manipulation_playground_articulated_devices" name="HNF361_safety_switch_actuation_node" type="HNF361_safety_switch_actuation_node.py" output="screen"/>
 
       <!-- Transform broadcaster -->
-      <node pkg="tf2_ros" type="static_transform_publisher" name="switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom HNF361_safety_switch/$(arg HNF361_safety_switch_ID)/world"/>
+      <node pkg="tf2_ros" type="static_transform_publisher" name="HNF361_safety_switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom HNF361_safety_switch/$(arg HNF361_safety_switch_ID)/world"/>
     </group>
   </group>
 

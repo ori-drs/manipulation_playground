@@ -1,0 +1,11 @@
+VDL_6_20_110_ball_valve_controller:
+  joint: ball_valve_joint
+  pid:
+    d: 0.01
+    i: 0
+    p: 0.5
+  type: effort_controllers/JointPositionController
+
+VDL_6_20_110_ball_valve_joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100
