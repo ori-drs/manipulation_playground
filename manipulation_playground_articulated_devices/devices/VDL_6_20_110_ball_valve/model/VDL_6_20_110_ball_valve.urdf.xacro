@@ -54,12 +54,19 @@
         </inertial>
     </link>
 
+    <joint name="ball_valve_handle_to_base" type="fixed">
+        <parent link="base"/>
+        <child link="handle"/>
+        <origin xyz="0 0 0.145" rpy="0 0 0"/>
+    </joint>
+
+    <link name="handle"/>
 
     <!-- Ball Valve Joint -->
     <joint name="ball_valve_joint" type="revolute">
-        <parent link="base"/>
-        <child link="handle"/>
-        <origin xyz="0 0 0.15" rpy="0 0 0"/>
+        <parent link="handle"/>
+        <child link="handle_rotated"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="10.0" />
         <limit effort="100" velocity="0.5" lower="0" upper="1.5708" />
@@ -78,7 +85,7 @@
 
 
     <!-- Ball Valve Handle -->
-    <link name="handle">
+    <link name="handle_rotated">
         <collision>
             <origin xyz="0 0 -0.145" rpy="0 0 0"/>
             <geometry>

@@ -31,9 +31,9 @@
     <!-- Gate Valve Base -->
     <link name="base">
         <collision>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_base.dae"/>
+                <box size="0.13 0.13 0.24"/>
             </geometry>
         </collision>
 
@@ -54,11 +54,18 @@
         </inertial>
     </link>
 
-
-    <!-- Needle Valve Joint -->
-    <joint name="gate_valve_joint" type="continuous">
+    <joint name="gate_valve_handle_to_base" type="fixed">
         <parent link="base"/>
         <child link="handle"/>
+        <origin xyz="0 0 0.22" rpy="0 0 0"/>
+    </joint>
+
+    <link name="handle"/>
+
+    <!-- Gate Valve Joint -->
+    <joint name="gate_valve_joint" type="continuous">
+        <parent link="handle"/>
+        <child link="handle_rotated"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="10.0" />
@@ -78,23 +85,23 @@
 
 
     <!-- Gate Valve Handle -->
-    <link name="handle">
+    <link name="handle_rotated">
         <collision>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+            <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+            <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/PN16_gate_valve/model/PN16_gate_valve_handle.dae"/>
             </geometry>
         </visual>
 
         <inertial>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+            <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
             <mass value="${mass2}"/>
             <inertia
                 ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"

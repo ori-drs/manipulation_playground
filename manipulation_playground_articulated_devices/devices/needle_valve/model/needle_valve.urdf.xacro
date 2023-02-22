@@ -54,12 +54,19 @@
         </inertial>
     </link>
 
+    <joint name="needle_valve_handle_to_base" type="fixed">
+        <parent link="base"/>
+        <child link="handle"/>
+        <origin xyz="0 0 0.071" rpy="0 0 0"/>
+    </joint>
+
+    <link name="handle"/>
 
     <!-- Needle Valve Joint -->
     <joint name="needle_valve_joint" type="continuous">
-        <parent link="base"/>
-        <child link="handle"/>
-        <origin xyz="0 0 0.071" rpy="0 0 0"/> <!-- 0.071 -->
+        <parent link="handle"/>
+        <child link="handle_rotated"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="0.01" />
         <limit effort="100" velocity="0.5" />
@@ -77,16 +84,16 @@
 
 
     <!-- Needle Valve Handle -->
-    <link name="handle">
+    <link name="handle_rotated">
         <collision>
-            <origin xyz="0 0 0" rpy="0 -1.5708 0"/>
+            <origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
             <geometry>
                 <cylinder radius="0.0063" length="0.055"/>
             </geometry>
         </collision>
 
         <visual>
-            <origin xyz="0 0 -0.071" rpy="-1.5708 0 -1.5708"/>
+            <origin xyz="0 0 -0.071" rpy="-1.5708 0 0"/>
             <geometry>
                 <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_handle.dae"/>
             </geometry>

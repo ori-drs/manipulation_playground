@@ -1,9 +1,9 @@
 needle_valve_controller:
   joint: needle_valve_joint
   pid:
-    d: 0.01
-    i: 0
-    p: 0.5
+    d: 0.0
+    i: 0.0
+    p: 0.0
   type: effort_controllers/JointPositionController
 
 needle_valve_joint_state_controller:
