@@ -1,9 +1,25 @@
-needle_valve_controller:
+needle_valve_controller_none:
   joint: needle_valve_joint
   pid:
     d: 0.0
     i: 0.0
     p: 0.0
+  type: effort_controllers/JointPositionController
+
+needle_valve_controller_normal:
+  joint: needle_valve_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 0.1
+  type: effort_controllers/JointPositionController
+
+needle_valve_controller_stiff:
+  joint: needle_valve_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 0.5
   type: effort_controllers/JointPositionController
 
 needle_valve_joint_state_controller:
