@@ -34,20 +34,10 @@
       <!-- Controllers -->
       <rosparam file="$(find manipulation_playground_articulated_devices)/devices/needle_valve/controllers/needle_valve_controllers.yaml" command="load"/>
       
-      <group if="$(eval dynamics == 'none')">
-        <node name="needle_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
-        args="spawn needle_valve_joint_state_controller needle_valve_controller_none" respawn="false" output="screen"/>
-      </group>
+      <node name="needle_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
+      args="spawn needle_valve_joint_state_controller needle_valve_controller_$(arg dynamics)" respawn="false" output="screen"/>
 
-      <group if="$(eval dynamics == 'normal')">
-        <node name="needle_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
-        args="spawn needle_valve_joint_state_controller needle_valve_controller_normal" respawn="false" output="screen"/>
-      </group>
-
-      <group if="$(eval dynamics == 'stiff')">
-        <node name="needle_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
-        args="spawn needle_valve_joint_state_controller needle_valve_controller_stiff" respawn="false" output="screen"/>
-      </group>
+      <node name="needle_valve_controller_command_relay" pkg="topic_tools" type="relay" args="needle_valve_controller/command needle_valve_controller_$(arg dynamics)/command" />
 
       <!-- Transform broadcaster -->
       <node pkg="tf2_ros" type="static_transform_publisher" name="needle_valve_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom needle_valve/$(arg needle_valve_ID)/world"/>
