@@ -13,7 +13,7 @@
   <arg name="Y" default="0.0"/>
 
   <!-- Dynamic Properties -->
-  <arg name="dynamics" default="'none'"/>
+  <arg name="dynamics" default="none"/>
 
   <group ns="needle_valve">
     <group ns="$(arg needle_valve_ID)">
