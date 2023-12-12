@@ -14,12 +14,13 @@
 
   <!-- Dynamic Properties -->
   <arg name="dynamics" default="none"/>
+  <arg name="continuous" default="true"/>
 
   <group ns="needle_valve">
     <group ns="$(arg needle_valve_ID)">
 
       <!-- Load needle_valve description file -->
-      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/needle_valve/model/needle_valve.urdf.xacro'"/>
+      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/needle_valve/model/needle_valve.urdf.xacro continuous:=$(arg continuous)"/>
       <param name="tf_prefix" value="needle_valve/$(arg needle_valve_ID)" />
 
       <!-- Spawn needle_valve -->
