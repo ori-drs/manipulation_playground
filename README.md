@@ -4,6 +4,8 @@
 
 ![Devices Currently Implemented](/manipulation_playground_articulated_devices/resources/devices_1.png)
 
+## Introduction
+
 A set of articulated devices implemented as 'robots' in simulation. Static and actuated models for visualization and simulation in RViz and Gazebo.
 
 The devices have the same affordances as their physical counterparts, and can also simulate reactive force/torque in response to being interacted with (for example, the needle_valve exerts more reactive torque as it is twisted further).
@@ -20,7 +22,9 @@ Currently implemented (left to right, top to bottom):
 - valve
 - button
 
-To spawn a model in Gazebo simulation, simply include the corresponding `..._spawn.launch` file in your ROS launch file, with the device ID and pose as input arguments. The dynamic properties of the device can be set to 'none' (i.e. disabled), 'normal' or 'stiff'. For devices that permit it, continuous rotation can be enabled or disabled (if disabled, the joint is revolute instead).
+## How to Use
+
+To spawn a device in Gazebo simulation, simply include the corresponding `..._spawn.launch` file in your ROS launch file, with the device ID and pose as input arguments. The dynamic properties of the device can be set to 'none' (i.e. disabled), 'normal' or 'stiff'. For devices that permit it, continuous rotation can be enabled or disabled (if disabled, the joint is revolute instead).
 
 An example for spawning the needle_valve is provided below:
 ```xml
