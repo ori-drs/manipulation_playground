@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<!-- Interactable Handle -->
-<robot name="handle" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<!-- Interactable Valve -->
+<robot name="valve" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:arg name="continuous" default="true"/>
 
-    <xacro:macro name="handle" params="continuous:=true">
+    <xacro:macro name="valve" params="continuous:=true">
 
-        <!-- Constants for Handle Dimensions -->
+        <!-- Constants for Valve Dimensions -->
         <!-- Base -->
         <xacro:property name="width" value="0.1"/>
         <xacro:property name="height1" value="0.02"/>
@@ -30,22 +30,22 @@
 
 
         <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/handle/model/handle.gazebo" />
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/valve/model/valve.gazebo" />
         <!-- Import Rviz colors -->
-        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/handle/model/materials.xacro" />
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/valve/model/materials.xacro" />
 
 
         <!-- Used to fix device to world -->
         <link name="world"/>
 
-        <joint name="handle_base_to_world" type="fixed">
+        <joint name="valve_base_to_world" type="fixed">
             <parent link="world"/>
             <child link="base"/>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </joint>
 
 
-        <!-- Handle Base -->
+        <!-- Valve Base -->
         <link name="base">
             <collision>
                 <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
@@ -72,7 +72,7 @@
             </inertial>
         </link>
 
-        <joint name="handle_handle_to_base" type="fixed">
+        <joint name="valve_handle_to_base" type="fixed">
             <parent link="base"/>
             <child link="handle"/>
             <origin xyz="0 0 ${height1}" rpy="0 0 0"/>
@@ -89,9 +89,9 @@
             </inertial>
         </link>
 
-        <!-- Handle Joint -->
+        <!-- Valve Joint -->
         <xacro:if value="${continuous}">
-            <joint name="handle_joint" type="continuous">
+            <joint name="valve_joint" type="continuous">
                 <parent link="handle"/>
                 <child link="handle_rotated"/>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -102,7 +102,7 @@
         </xacro:if>
 
         <xacro:unless value="${continuous}">
-            <joint name="handle_joint" type="revolute">
+            <joint name="valve_joint" type="revolute">
                 <parent link="handle"/>
                 <child link="handle_rotated"/>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -112,19 +112,19 @@
             </joint>
         </xacro:unless>
 
-        <transmission name="handle_trans">
+        <transmission name="valve_trans">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="handle_joint">
+            <joint name="valve_joint">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
-            <actuator name="handle_actuator">
+            <actuator name="valve_actuator">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>
 
 
-        <!-- Handle Neck -->
+        <!-- Valve Handle Neck -->
         <link name="handle_rotated">
             <collision>
                 <origin xyz="0 0 ${length2/2}" rpy="0 0 0"/>
@@ -158,7 +158,7 @@
         </joint>
 
 
-        <!-- Handle Ring -->
+        <!-- Valve Handle Ring -->
         <link name="ring">
             <collision>
                 <origin xyz="0 0 ${length3/2}" rpy="0 0 0"/>
@@ -186,8 +186,8 @@
         </link>
 
 
-        <!-- Handle Grip Joint -->
-        <joint name="handle_ring_to_grip" type="fixed">
+        <!-- Valve Handle Grip Joint -->
+        <joint name="valve_ring_to_grip" type="fixed">
             <parent link="ring"/>
             <child link="grip"/>
             <origin xyz="0 ${radius3-radius4-grip_offset_from_edge} ${length3}" rpy="0 0 0"/>
@@ -197,7 +197,7 @@
         </joint>
 
 
-        <!-- Handle Grip -->
+        <!-- Valve Handle Grip -->
         <link name="grip">
             <collision>
                 <origin xyz="0 0 ${length4/2}" rpy="0 0 0"/>
@@ -225,5 +225,5 @@
         </link>
     </xacro:macro>
 
-    <xacro:handle continuous="$(arg continuous)"/>
+    <xacro:valve continuous="$(arg continuous)"/>
 </robot>

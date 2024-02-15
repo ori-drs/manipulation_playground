@@ -9,28 +9,28 @@
     </gazebo>
 
 
-    <!-- Handle Base -->
+    <!-- Valve Base -->
     <gazebo reference="base">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
         <material>Gazebo/Grey</material>
     </gazebo>
 
-    <!-- Handle Neck -->
+    <!-- Valve Neck -->
     <gazebo reference="neck">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
         <material>Gazebo/Grey</material>
     </gazebo>
 
-    <!-- Handle Ring -->
+    <!-- Valve Ring -->
     <gazebo reference="ring">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
         <material>Gazebo/DarkGrey</material>
     </gazebo>
 
-    <!-- Handle Grip -->
+    <!-- Valve Grip -->
     <gazebo reference="grip">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>

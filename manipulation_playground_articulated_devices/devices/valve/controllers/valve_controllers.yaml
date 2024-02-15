@@ -1,27 +1,27 @@
-handle_controller_none:
-  joint: handle_joint
+valve_controller_none:
+  joint: valve_joint
   pid:
     d: 0.0
     i: 0.0
     p: 0.0
   type: effort_controllers/JointPositionController
 
-handle_controller_normal:
-  joint: handle_joint
+valve_controller_normal:
+  joint: valve_joint
   pid:
     d: 0.01
     i: 0.0
     p: 0.2
   type: effort_controllers/JointPositionController
 
-handle_controller_stiff:
-  joint: handle_joint
+valve_controller_stiff:
+  joint: valve_joint
   pid:
     d: 0.01
     i: 0.0
     p: 1.0
   type: effort_controllers/JointPositionController
 
-handle_joint_state_controller:
+valve_joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 100
