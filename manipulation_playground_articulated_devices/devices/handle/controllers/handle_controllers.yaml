@@ -1,9 +1,25 @@
-handle_controller:
+handle_controller_none:
   joint: handle_joint
   pid:
     d: 0.0
-    i: 0
+    i: 0.0
     p: 0.0
+  type: effort_controllers/JointPositionController
+
+handle_controller_normal:
+  joint: handle_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 0.2
+  type: effort_controllers/JointPositionController
+
+handle_controller_stiff:
+  joint: handle_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 1.0
   type: effort_controllers/JointPositionController
 
 handle_joint_state_controller:

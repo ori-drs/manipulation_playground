@@ -12,16 +12,19 @@
   <arg name="P" default="0.0"/>
   <arg name="Y" default="0.0"/>
 
+  <!-- Dynamic Properties -->
+  <arg name="dynamics" default="normal"/>
+
   <group ns="HNF361_safety_switch">
     <group ns="$(arg HNF361_safety_switch_ID)">
 
       <!-- Load switch description file -->
-      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.urdf.xacro'"/>
+      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.urdf.xacro"/>
       <param name="tf_prefix" value="HNF361_safety_switch/$(arg HNF361_safety_switch_ID)" />
 
       <!-- Spawn switch -->
       <node name="HNF361_safety_switch_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model HNF361_safety_switch -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+      args="-urdf -param robot_description -model HNF361_safety_switch_$(arg HNF361_safety_switch_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
 
       <!-- State publisher -->
       <node name="HNF361_safety_switch_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -32,7 +35,9 @@
       <rosparam file="$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/controllers/HNF361_safety_switch_controllers.yaml" command="load"/>
       
       <node name="HNF361_safety_switch_controllers_spawner" pkg="controller_manager" type="controller_manager"
-      args="spawn HNF361_safety_switch_joint_state_controller HNF361_safety_switch_controller" respawn="false" output="screen"/>
+      args="spawn HNF361_safety_switch_joint_state_controller HNF361_safety_switch_controller_$(arg dynamics)" respawn="false" output="screen"/>
+
+      <node name="HNF361_safety_switch_controller_command_relay" pkg="topic_tools" type="relay" args="HNF361_safety_switch_controller/command HNF361_safety_switch_controller_$(arg dynamics)/command" />
 
       <!-- Actuation node -->
       <node pkg="manipulation_playground_articulated_devices" name="HNF361_safety_switch_actuation_node" type="HNF361_safety_switch_actuation_node.py" output="screen"/>

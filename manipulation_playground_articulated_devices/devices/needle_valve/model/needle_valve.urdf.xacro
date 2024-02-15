@@ -22,7 +22,7 @@
         <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/needle_valve/model/needle_valve.gazebo" />
         
         
-        <!-- Used to fix switch to world -->
+        <!-- Used to fix device to world -->
         <link name="world"/>
 
         <joint name="needle_valve_base_to_world" type="fixed">

@@ -2,106 +2,109 @@
 <!-- Actuated HNF361 Safety Switch -->
 <robot name="HNF361_safety_switch" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- Dimensions for Inertias -->
-    <!-- Base -->
-    <xacro:property name="width1" value="0.2"/>
-    <xacro:property name="height1" value="0.2"/>
-    <xacro:property name="mass1" value="2.0"/>
+    <xacro:macro name="HNF361_safety_switch">
 
-    <!-- Lever -->
-    <xacro:property name="length2" value="0.03"/>
-    <xacro:property name="radius2" value="0.1"/>
-    <xacro:property name="mass2" value="0.4"/>
+        <!-- Dimensions for Inertias -->
+        <!-- Base -->
+        <xacro:property name="width1" value="0.2"/>
+        <xacro:property name="height1" value="0.2"/>
+        <xacro:property name="mass1" value="2.0"/>
 
-
-    <!-- Import all Gazebo-customization elements -->
-    <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.gazebo" />
-    
-    
-    <!-- Used to fix switch to world -->
-    <link name="world"/>
-
-    <joint name="switch_base_to_world" type="fixed">
-        <parent link="world"/>
-        <child link="base"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+        <!-- Lever -->
+        <xacro:property name="length2" value="0.03"/>
+        <xacro:property name="radius2" value="0.1"/>
+        <xacro:property name="mass2" value="0.4"/>
 
 
-    <!-- Switch Base -->
-    <link name="base">
-        <collision>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
-            <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_base.dae"/>
-            </geometry>
-        </collision>
+        <!-- Import all Gazebo-customization elements -->
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/HNF361_safety_switch/model/HNF361_safety_switch.gazebo" />
+        
+        
+        <!-- Used to fix device to world -->
+        <link name="world"/>
 
-        <visual>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
-            <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_base.dae"/>
-            </geometry>
-        </visual>
-
-        <inertial>
-            <origin xyz="0 0 ${height1/2}" rpy="-1.5708 0 0"/>
-            <mass value="${mass1}"/>
-            <inertia
-                ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
-                iyy="${mass1 / 12.0 * (height1*height1 + width1*width1)}" iyz="0.0"
-                izz="${mass1 / 12.0 * (width1*width1 + width1*width1)}"/>
-        </inertial>
-    </link>
-
-
-    <!-- Switch Joint -->
-    <joint name="switch_joint" type="revolute">
-        <parent link="base"/>
-        <child link="lever"/>
-        <origin xyz="0 -0.043 0.015" rpy="0 0 0"/>
-        <axis xyz="1 0 0"/>
-        <dynamics damping="0.0" friction="10.0" />
-        <limit effort="100" lower="-1.5707" upper="0" velocity="0.5" />
-    </joint>
-
-    <transmission name="switch_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="switch_joint">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <joint name="switch_base_to_world" type="fixed">
+            <parent link="world"/>
+            <child link="base"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
         </joint>
-        <actuator name="switch_actuator">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-    </transmission>
 
 
-    <!-- Switch Lever -->
-    <link name="lever">
-        <collision>
-            <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
-            <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
-            </geometry>
-        </collision>
+        <!-- Switch Base -->
+        <link name="base">
+            <collision>
+                <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+                <geometry>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_base.dae"/>
+                </geometry>
+            </collision>
 
-        <visual>
-            <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
-            <geometry>
-                <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
-            </geometry>
-        </visual>
+            <visual>
+                <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+                <geometry>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_base.dae"/>
+                </geometry>
+            </visual>
 
-        <inertial>
-            <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
-            <mass value="${mass2}"/>
-            <inertia
-                ixx="${mass2 / 2.0 * (radius2*radius2)}" ixy="0.0" ixz="0.0"
-                iyy="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" iyz="0.0"
-                izz="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}"/>
-        </inertial>
-    </link>
+            <inertial>
+                <origin xyz="0 0 ${height1/2}" rpy="-1.5708 0 0"/>
+                <mass value="${mass1}"/>
+                <inertia
+                    ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass1 / 12.0 * (height1*height1 + width1*width1)}" iyz="0.0"
+                    izz="${mass1 / 12.0 * (width1*width1 + width1*width1)}"/>
+            </inertial>
+        </link>
 
 
+        <!-- Switch Joint -->
+        <joint name="switch_joint" type="revolute">
+            <parent link="base"/>
+            <child link="lever"/>
+            <origin xyz="0 -0.043 0.015" rpy="0 0 0"/>
+            <axis xyz="1 0 0"/>
+            <dynamics damping="0.0" friction="10.0" />
+            <limit effort="100" lower="-1.5707" upper="0" velocity="0.5" />
+        </joint>
+
+        <transmission name="switch_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="switch_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="switch_actuator">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+
+        <!-- Switch Lever -->
+        <link name="lever">
+            <collision>
+                <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
+                <geometry>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
+                <geometry>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
+                </geometry>
+            </visual>
+
+            <inertial>
+                <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+                <mass value="${mass2}"/>
+                <inertia
+                    ixx="${mass2 / 2.0 * (radius2*radius2)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" iyz="0.0"
+                    izz="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+    <xacro:HNF361_safety_switch/>
 </robot>

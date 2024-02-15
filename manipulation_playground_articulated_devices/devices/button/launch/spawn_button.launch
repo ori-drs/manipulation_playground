@@ -12,6 +12,9 @@
   <arg name="P" default="1.5707"/>
   <arg name="Y" default="0.0"/>
 
+  <!-- Dynamic Properties -->
+  <arg name="dynamics" default="normal"/>
+
   <group ns="button">
     <group ns="$(arg button_ID)">
 
@@ -21,7 +24,7 @@
 
       <!-- Spawn button -->
       <node name="button_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model button -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+      args="-urdf -param robot_description -model button_$(arg button_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
 
       <!-- State publisher -->
       <node name="button_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -32,10 +35,12 @@
       <rosparam file="$(find manipulation_playground_articulated_devices)/devices/button/controllers/button_controllers.yaml" command="load"/>
       
       <node name="button_controllers_spawner" pkg="controller_manager" type="controller_manager"
-      args="spawn button_joint_state_controller button_twist_controller button_controller" respawn="false" output="screen"/>
+      args="spawn button_joint_state_controller button_twist_controller button_controller_$(arg dynamics)" respawn="false" output="screen"/>
 
       <!-- Actuation node -->
       <node pkg="manipulation_playground_articulated_devices" name="button_actuation_node" type="button_actuation_node.py" output="screen"/>
+
+      <node name="button_controller_command_relay" pkg="topic_tools" type="relay" args="button_controller/command button_controller_$(arg dynamics)/command" />
 
       <!-- Transform broadcaster -->
       <node pkg="tf2_ros" type="static_transform_publisher" name="button_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom button/$(arg button_ID)/world"/>

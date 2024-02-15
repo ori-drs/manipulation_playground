@@ -6,7 +6,23 @@ button_twist_controller:
     p: 0.05
   type: effort_controllers/JointPositionController
 
-button_controller:
+button_controller_none:
+  joint: button_joint
+  pid:
+    d: 0.0
+    i: 0.0
+    p: 0.0
+  type: effort_controllers/JointPositionController
+
+button_controller_normal:
+  joint: button_joint
+  pid:
+    d: 1.0
+    i: 0
+    p: 1.0
+  type: effort_controllers/JointPositionController
+
+button_controller_stiff:
   joint: button_joint
   pid:
     d: 5.0
