@@ -61,9 +61,9 @@
         <joint name="switch_joint" type="revolute">
             <parent link="base"/>
             <child link="lever"/>
-            <origin xyz="0 -0.043 0.015" rpy="0 0 0"/>
+            <origin xyz="0 0.011 0.045" rpy="0 0 0"/>
             <axis xyz="1 0 0"/>
-            <dynamics damping="0.0" friction="10.0" />
+            <dynamics damping="0.0" friction="0.01" />
             <limit effort="100" lower="-1.5707" upper="0" velocity="0.5" />
         </joint>
 
@@ -82,14 +82,14 @@
         <!-- Switch Lever -->
         <link name="lever">
             <collision>
-                <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
+                <origin xyz="0 -0.011 -0.045" rpy="-1.5708 0 0"/>
                 <geometry>
                     <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
                 </geometry>
             </collision>
 
             <visual>
-                <origin xyz="0 0.043 -0.015" rpy="-1.5708 0 0"/>
+                <origin xyz="0 -0.011 -0.045" rpy="-1.5708 0 0"/>
                 <geometry>
                     <mesh filename="package://manipulation_playground_articulated_devices/devices/HNF361_safety_switch/model/HNF361_safety_switch_lever.dae"/>
                 </geometry>

@@ -79,7 +79,7 @@
             <child link="handle_rotated"/>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <axis xyz="0 0 1"/>
-            <dynamics damping="0.0" friction="10.0" />
+            <dynamics damping="0.0" friction="0.01" />
             <limit effort="100" velocity="0.5" lower="0" upper="1.5708" />
         </joint>
 

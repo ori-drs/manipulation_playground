@@ -14,6 +14,7 @@
 
   <!-- Dynamic Properties -->
   <arg name="dynamics" default="normal"/>
+  <arg name="continuous" default="true"/> <!-- Not used -->
 
   <group ns="button">
     <group ns="$(arg button_ID)">

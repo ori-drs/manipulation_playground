@@ -14,6 +14,7 @@
 
   <!-- Dynamic Properties -->
   <arg name="dynamics" default="normal"/>
+  <arg name="continuous" default="true"/> <!-- Not used -->
 
   <group ns="HNF361_safety_switch">
     <group ns="$(arg HNF361_safety_switch_ID)">
