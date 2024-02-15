@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="use_gui" default="true" />
-  <arg name="object_type" default="needle_valve" />
+  <arg name="device_type" default="needle_valve" />
 
-  <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/$(arg object_type)/model/$(arg object_type).urdf.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/$(arg device_type)/model/$(arg device_type).urdf.xacro"/>
 
   <node name="model_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
   
   <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" unless="$(arg use_gui)"/>
   <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher" if="$(arg use_gui)"/>
 
-  <node name="rviz" pkg="rviz" type="rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find manipulation_playground_articulated_devices)/resources/display_model.rviz" />
 </launch>
