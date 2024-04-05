@@ -2,13 +2,13 @@
   <name>manipulation_playground_articulated_devices</name>
   <version>0.1.0</version>
   <description>manipulation_playground_articulated_devices</description>
-  <maintainer email="jacques.cloete@trinity.ox.ac.uk">Jacques Cloete</maintainer>
+  <maintainer email="jacques@robots.ox.ac.uk">Jacques Cloete</maintainer>
 
   <license>BSD</license>
 
   <url type="website">https://ori.ox.ac.uk/</url> 
   
-  <author email="jacques.cloete@trinity.ox.ac.uk">Jacques Cloete</author>
+  <author email="jacques@robots.ox.ac.uk">Jacques Cloete</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 

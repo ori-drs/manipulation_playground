@@ -1,27 +1,27 @@
-HNF361_safety_switch_controller_none:
-  joint: switch_joint
+valve_controller_none:
+  joint: valve_joint
   pid:
     d: 0.0
     i: 0.0
     p: 0.0
   type: effort_controllers/JointPositionController
 
-HNF361_safety_switch_controller_normal:
-  joint: switch_joint
+valve_controller_normal:
+  joint: valve_joint
   pid:
     d: 0.01
     i: 0.0
-    p: 0.6
+    p: 0.2
   type: effort_controllers/JointPositionController
 
-HNF361_safety_switch_controller_stiff:
-  joint: switch_joint
+valve_controller_stiff:
+  joint: valve_joint
   pid:
     d: 0.01
     i: 0.0
-    p: 3.0
+    p: 1.0
   type: effort_controllers/JointPositionController
 
-HNF361_safety_switch_joint_state_controller:
+valve_joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 100

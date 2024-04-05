@@ -12,16 +12,20 @@
   <arg name="P" default="0.0"/>
   <arg name="Y" default="0.0"/>
 
+  <!-- Dynamic Properties -->
+  <arg name="dynamics" default="normal"/>
+  <arg name="continuous" default="true"/>
+
   <group ns="PN16_gate_valve">
     <group ns="$(arg PN16_gate_valve_ID)">
 
       <!-- Load gate_valve description file -->
-      <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/PN16_gate_valve/model/PN16_gate_valve.urdf.xacro'"/>
+      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/PN16_gate_valve/model/PN16_gate_valve.urdf.xacro continuous:=$(arg continuous)"/>
       <param name="tf_prefix" value="PN16_gate_valve/$(arg PN16_gate_valve_ID)" />
 
       <!-- Spawn gate_valve -->
       <node name="PN16_gate_valve_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model PN16_gate_valve -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+      args="-urdf -param robot_description -model PN16_gate_valve_$(arg PN16_gate_valve_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
 
       <!-- State publisher -->
       <node name="PN16_gate_valve_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -32,7 +36,9 @@
       <rosparam file="$(find manipulation_playground_articulated_devices)/devices/PN16_gate_valve/controllers/PN16_gate_valve_controllers.yaml" command="load"/>
       
       <node name="PN16_gate_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
-      args="spawn PN16_gate_valve_joint_state_controller PN16_gate_valve_controller" respawn="false" output="screen"/>
+      args="spawn PN16_gate_valve_joint_state_controller PN16_gate_valve_controller_$(arg dynamics)" respawn="false" output="screen"/>
+
+      <node name="PN16_gate_valve_controller_command_relay" pkg="topic_tools" type="relay" args="PN16_gate_valve_controller/command PN16_gate_valve_controller_$(arg dynamics)/command" />
 
       <!-- Transform broadcaster -->
       <node pkg="tf2_ros" type="static_transform_publisher" name="PN16_gate_valve_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom PN16_gate_valve/$(arg PN16_gate_valve_ID)/world"/>

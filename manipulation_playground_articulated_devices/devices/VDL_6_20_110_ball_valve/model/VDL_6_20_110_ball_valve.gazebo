@@ -4,7 +4,6 @@
     <!-- ROS Control Plugin -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <!-- <robotNamespace>/switch</robotNamespace> -->
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
         </plugin>
     </gazebo>
@@ -17,7 +16,7 @@
     </gazebo>
 
     <!-- Ball Valve Handle -->
-    <gazebo reference="handle">
+    <gazebo reference="handle_rotated">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>

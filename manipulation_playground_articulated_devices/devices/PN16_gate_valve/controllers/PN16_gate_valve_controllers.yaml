@@ -1,9 +1,25 @@
-PN16_gate_valve_controller:
+PN16_gate_valve_controller_none:
   joint: gate_valve_joint
   pid:
     d: 0.0
-    i: 0
+    i: 0.0
     p: 0.0
+  type: effort_controllers/JointPositionController
+
+PN16_gate_valve_controller_normal:
+  joint: gate_valve_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 0.2
+  type: effort_controllers/JointPositionController
+
+PN16_gate_valve_controller_stiff:
+  joint: gate_valve_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 1.0
   type: effort_controllers/JointPositionController
 
 PN16_gate_valve_joint_state_controller:

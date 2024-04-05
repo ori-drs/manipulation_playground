@@ -1,9 +1,25 @@
-DN40_globe_valve_controller:
+DN40_globe_valve_controller_none:
+  joint: globe_valve_joint
+  pid:
+    d: 0.0
+    i: 0.0
+    p: 0.0
+  type: effort_controllers/JointPositionController
+
+DN40_globe_valve_controller_normal:
   joint: globe_valve_joint
   pid:
     d: 0.01
-    i: 0
-    p: 0.5
+    i: 0.0
+    p: 0.2
+  type: effort_controllers/JointPositionController
+
+DN40_globe_valve_controller_stiff:
+  joint: globe_valve_joint
+  pid:
+    d: 0.01
+    i: 0.0
+    p: 1.0
   type: effort_controllers/JointPositionController
 
 DN40_globe_valve_joint_state_controller:
