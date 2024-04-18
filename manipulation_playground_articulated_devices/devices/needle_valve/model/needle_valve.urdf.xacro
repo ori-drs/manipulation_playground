@@ -95,6 +95,7 @@
                 <axis xyz="0 0 1"/>
                 <dynamics damping="0.0" friction="0.01" />
                 <limit effort="100" lower="-3.0" upper="3.0" velocity="0.5" />
+                <!-- <limit effort="100" lower="-0.7854" upper="0.7854" velocity="0.5" /> -->
             </joint>
         </xacro:unless>
 
