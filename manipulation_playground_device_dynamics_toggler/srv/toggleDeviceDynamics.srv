@@ -1,0 +1,5 @@
+string device_type
+string device_id
+bool enable
+---
+bool success
