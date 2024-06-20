@@ -14,9 +14,10 @@
 
   <!-- Dynamic Properties -->
   <arg name="dynamics" default="normal"/>
-  <arg name="continuous" default="true"/> <!-- Not used -->
-  <arg name="lower_limit" default="3.1415"/> <!-- Not used -->
-  <arg name="upper_limit" default="-3.1415"/> <!-- Not used -->
+  <arg name="initial_activation_state" default="false"/>
+
+  <arg name="initial_joint_state" default="0.0" unless="$(arg initial_activation_state)"/>
+  <arg name="initial_joint_state" value="-0.005" if="$(arg initial_activation_state)"/>
 
   <group ns="e_stop_button">
     <group ns="$(arg e_stop_button_ID)">
@@ -27,7 +28,7 @@
 
       <!-- Spawn button -->
       <node name="e_stop_button_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model e_stop_button_$(arg e_stop_button_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+      args="-urdf -param robot_description -model e_stop_button_$(arg e_stop_button_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J button_joint $(arg initial_joint_state)"/>
 
       <!-- State publisher -->
       <node name="e_stop_button_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">

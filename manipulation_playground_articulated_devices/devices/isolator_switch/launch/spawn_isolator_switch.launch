@@ -14,15 +14,16 @@
 
   <!-- Dynamic Properties -->
   <arg name="dynamics" default="normal"/>
-  <arg name="continuous" default="true"/> <!-- Not used -->
-    <arg name="lower_limit" default="-3.1415"/> <!-- Not used -->
-  <arg name="upper_limit" default="3.1415"/> <!-- Not used -->
+  <arg name="initial_activation_state" default="false"/>
+
+  <arg name="initial_joint_state" default="0.0" unless="$(arg initial_activation_state)"/>
+  <arg name="initial_joint_state" value="1.5707" if="$(arg initial_activation_state)"/>
 
   <group ns="isolator_switch">
     <group ns="$(arg isolator_switch_ID)">
 
       <!-- Load isolator_switch description file -->
-      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/isolator_switch/model/isolator_switch.urdf.xacro"/>
+      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/isolator_switch/model/isolator_switch.urdf.xacro -J switch_joint $(arg initial_joint_state)"/>
       <param name="tf_prefix" value="isolator_switch/$(arg isolator_switch_ID)" />
 
       <!-- Spawn isolator_switch -->
