@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Switch ID -->
-  <arg name="safety_switch_ID" default="0"/>
+  <arg name="ID" default="0"/>
 
   <!-- Pose for Spawn -->
   <arg name="x" default="1.0"/>
@@ -20,15 +20,15 @@
   <arg name="initial_joint_state" value="-1.5707" if="$(arg initial_activation_state)"/>
 
   <group ns="safety_switch">
-    <group ns="$(arg safety_switch_ID)">
+    <group ns="$(arg ID)">
 
       <!-- Load switch description file -->
       <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/safety_switch/model/safety_switch.urdf.xacro"/>
-      <param name="tf_prefix" value="safety_switch/$(arg safety_switch_ID)" />
+      <param name="tf_prefix" value="safety_switch/$(arg ID)" />
 
       <!-- Spawn switch -->
       <node name="safety_switch_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model safety_switch_$(arg safety_switch_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J switch_joint $(arg initial_joint_state)"/>
+      args="-urdf -param robot_description -model safety_switch_$(arg ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J switch_joint $(arg initial_joint_state)"/>
 
       <!-- State publisher -->
       <node name="safety_switch_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -47,7 +47,7 @@
       <node pkg="manipulation_playground_articulated_devices" name="safety_switch_actuation_node" type="safety_switch_actuation_node.py" output="screen"/>
 
       <!-- Transform broadcaster -->
-      <node pkg="tf2_ros" type="static_transform_publisher" name="safety_switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom safety_switch/$(arg safety_switch_ID)/world"/>
+      <node pkg="tf2_ros" type="static_transform_publisher" name="safety_switch_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom safety_switch/$(arg ID)/world"/>
     </group>
   </group>
 

@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Needle Valve ID -->
-  <arg name="needle_valve_ID" default="0"/>
+  <arg name="ID" default="0"/>
 
   <!-- Pose for Spawn -->
   <arg name="x" default="1.0"/>
@@ -20,15 +20,15 @@
   <arg name="initial_joint_state" default= "0.0"/>
 
   <group ns="needle_valve">
-    <group ns="$(arg needle_valve_ID)">
+    <group ns="$(arg ID)">
 
       <!-- Load needle_valve description file -->
       <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/needle_valve/model/needle_valve.urdf.xacro continuous:=$(arg continuous) lower_limit:=$(arg lower_limit) upper_limit:=$(arg upper_limit)"/>
-      <param name="tf_prefix" value="needle_valve/$(arg needle_valve_ID)" />
+      <param name="tf_prefix" value="needle_valve/$(arg ID)" />
 
       <!-- Spawn needle_valve -->
       <node name="needle_valve_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model needle_valve_$(arg needle_valve_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J needle_valve_joint $(arg initial_joint_state)"/>
+      args="-urdf -param robot_description -model needle_valve_$(arg ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J needle_valve_joint $(arg initial_joint_state)"/>
 
       <!-- State publisher -->
       <node name="needle_valve_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -44,7 +44,7 @@
       <node name="needle_valve_controller_command_relay" pkg="topic_tools" type="relay" args="needle_valve_controller/command needle_valve_controller_$(arg dynamics)/command" />
 
       <!-- Transform broadcaster -->
-      <node pkg="tf2_ros" type="static_transform_publisher" name="needle_valve_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom needle_valve/$(arg needle_valve_ID)/world"/>
+      <node pkg="tf2_ros" type="static_transform_publisher" name="needle_valve_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom needle_valve/$(arg ID)/world"/>
     </group>
   </group>
 

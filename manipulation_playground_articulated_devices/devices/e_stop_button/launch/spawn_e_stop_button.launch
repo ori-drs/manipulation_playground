@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Button ID -->
-  <arg name="e_stop_button_ID" default="0"/>
+  <arg name="ID" default="0"/>
 
   <!-- Pose for Spawn -->
   <arg name="x" default="1.0"/>
@@ -20,15 +20,15 @@
   <arg name="initial_joint_state" value="-0.005" if="$(arg initial_activation_state)"/>
 
   <group ns="e_stop_button">
-    <group ns="$(arg e_stop_button_ID)">
+    <group ns="$(arg ID)">
 
       <!-- Load button description file -->
       <param name="robot_description" command="$(find xacro)/xacro '$(find manipulation_playground_articulated_devices)/devices/e_stop_button/model/e_stop_button.urdf.xacro'"/>
-      <param name="tf_prefix" value="e_stop_button/$(arg e_stop_button_ID)" />
+      <param name="tf_prefix" value="e_stop_button/$(arg ID)" />
 
       <!-- Spawn button -->
       <node name="e_stop_button_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-      args="-urdf -param robot_description -model e_stop_button_$(arg e_stop_button_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J button_joint $(arg initial_joint_state)"/>
+      args="-urdf -param robot_description -model e_stop_button_$(arg ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R) -J button_joint $(arg initial_joint_state)"/>
 
       <!-- State publisher -->
       <node name="e_stop_button_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -47,7 +47,7 @@
       <node name="e_stop_button_controller_command_relay" pkg="topic_tools" type="relay" args="e_stop_button_controller/command e_stop_button_controller_$(arg dynamics)/command" />
 
       <!-- Transform broadcaster -->
-      <node pkg="tf2_ros" type="static_transform_publisher" name="e_stop_button_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom e_stop_button/$(arg e_stop_button_ID)/world"/>
+      <node pkg="tf2_ros" type="static_transform_publisher" name="e_stop_button_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom e_stop_button/$(arg ID)/world"/>
     </group>
   </group>
 
