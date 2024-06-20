@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 549
   - Class: rviz/Selection
@@ -71,11 +73,11 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        handle_rotated:
+          Value: true
+        handle_zero:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
         world:
           Alpha: 1
           Show Axes: false
@@ -86,6 +88,21 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: false
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        {}
+      Update Interval: 0
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -114,7 +131,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.5134554505348206
+      Distance: 0.6423362493515015
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -122,17 +139,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -0.016440993174910545
+        Y: 0.015031883493065834
+        Z: 0.055703721940517426
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.785398006439209
+      Pitch: 0.4897973835468292
       Target Frame: <Fixed Frame>
-      Yaw: 0.785398006439209
+      Yaw: 5.648574352264404
     Saved: ~
 Window Geometry:
   Displays:
@@ -151,4 +168,4 @@ Window Geometry:
     collapsed: false
   Width: 1267
   X: 445
-  Y: 74
+  Y: 27

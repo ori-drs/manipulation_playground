@@ -1,0 +1,35 @@
+e_stop_button_twist_controller:
+  joint: button_twist_joint
+  pid:
+    d: 0.01
+    i: 0
+    p: 0.05
+  type: effort_controllers/JointPositionController
+
+e_stop_button_controller_none:
+  joint: button_joint
+  pid:
+    d: 0.0
+    i: 0.0
+    p: 0.0
+  type: effort_controllers/JointPositionController
+
+e_stop_button_controller_normal:
+  joint: button_joint
+  pid:
+    d: 1.0
+    i: 0
+    p: 1.0
+  type: effort_controllers/JointPositionController
+
+e_stop_button_controller_stiff:
+  joint: button_joint
+  pid:
+    d: 5.0
+    i: 0
+    p: 5.0
+  type: effort_controllers/JointPositionController
+
+e_stop_button_joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100

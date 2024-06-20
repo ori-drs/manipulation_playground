@@ -9,13 +9,13 @@
     </gazebo>
 
 
-    <!-- Needle Valve Base -->
+    <!-- Ball Valve Base -->
     <gazebo reference="base">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>
 
-    <!-- Needle Valve Handle -->
+    <!-- Ball Valve Handle -->
     <gazebo reference="handle">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>

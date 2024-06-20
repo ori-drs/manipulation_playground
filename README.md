@@ -1,8 +1,8 @@
 # manipulation_playground
 
-![Devices Currently Implemented](/manipulation_playground_articulated_devices/resources/devices_0.png)
+![Devices Currently Implemented](manipulation_playground_articulated_devices/resources/devices_0.png)
 
-![Devices Currently Implemented](/manipulation_playground_articulated_devices/resources/devices_1.png)
+![Devices Currently Implemented](manipulation_playground_articulated_devices/resources/devices_1.png)
 
 ## Introduction
 
@@ -13,20 +13,20 @@ The devices have the same affordances as their physical counterparts, and can al
 The switches and buttons can also be switched on/off much like their physical counterparts; this is simulated using simple Python scripts that load when the devices are spawned.
 
 Currently implemented (left to right, top to bottom):
-- VDL_6_20_110_ball_valve
-- DN40_globe_valve
-- PN16_gate_valve
-- needle_valve
-- HNF361_safety_switch
-- switch
-- valve
-- button
+- Ball Valve (based on [Van de Lande 6.20.110 Ball Valve](https://www.vandelande.com/en/products/pvc-u-metric/620-ball-valve-type-did/))
+- Globe Valve (based on [DN40 PN16 Globe Valve](https://grabcad.com/library/globe-stop-valve-dn40-1))
+- Gate Valve (based on [PEEL Pumps 3" Brass Gate Valve](https://www.peelpumps.co.uk/p/3-bsp-brass-gate-valve/))
+- Needle Valve (based on [Tameson NLS-012 Needle Valve](https://tameson.co.uk/products/nls-012-g1-2inch-stainless-steel-needle-valve-ptfe-300-bar))
+- Safety Switch (based on [Siemens HNF361 Safety Switch](https://mall.industry.siemens.com/mall/en/us/Catalog/Product/?mlfb=US2%3AHNF361))
+- Isolator Switch (based on [RS PRO 4P Isolator Switch](https://uk.rs-online.com/web/p/isolator-switches/0466223))
+- Hand Wheel (based on [RS PRO Hand Wheels](https://uk.rs-online.com/web/c/engineering-materials-industrial-hardware/knobs-levers-handles/hand-wheels/?pn=1))
+- E-Stop Button (based on [IDEC HW1X-BV411-R Emergency Stop](https://us.idec.com/idec-us/en/USD/Switches-and-Pushbuttons/Pushbuttons-and-Pilot-Lights/HW-22mm-Heavy-Duty/p/HW1X-BV411-R))
 
-## How to Use
+## How to Spawn in Gazebo
 
 To spawn a device in Gazebo simulation, simply include the corresponding `..._spawn.launch` file in your ROS launch file, with the device ID and pose as input arguments. The dynamic properties of the device can be set to 'none' (i.e. disabled), 'normal' or 'stiff'. For devices that permit it, continuous rotation can be enabled or disabled (if disabled, the joint is revolute instead).
 
-An example for spawning the needle_valve is provided below:
+An example for spawning the needle valve is provided below:
 ```xml
 <include file="$(find manipulation_playground_articulated_devices)/devices/needle_valve/launch/needle_valve_spawn.launch" >
   <arg name="needle_valve_ID" value="0"/>

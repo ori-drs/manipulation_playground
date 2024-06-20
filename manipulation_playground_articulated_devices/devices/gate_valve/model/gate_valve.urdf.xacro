@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<!-- Interactable Needle Valve -->
-<robot name="needle_valve" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<!-- Interactable Gate Valve -->
+<robot name="gate_valve" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:arg name="continuous" default="true"/>
     <xacro:arg name="lower_limit" default="-3.1415"/>
     <xacro:arg name="upper_limit" default="3.1415"/>
 
-    <xacro:macro name="needle_valve" params="continuous:=true lower_limit:=-3.1415 upper_limit:=3.1415">
+    <xacro:macro name="gate_valve" params="continuous:=true lower_limit:=-3.1415 upper_limit:=3.1415">
 
         <!-- Dimensions for Inertias -->
         <!-- Base -->
@@ -21,37 +21,37 @@
 
 
         <!-- Import all Gazebo-customization elements -->
-        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/needle_valve/model/needle_valve.gazebo" />
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/gate_valve/model/PN16_gate_valve.gazebo" />
         
         
         <!-- Used to fix device to world -->
         <link name="world"/>
 
-        <joint name="needle_valve_base_to_world" type="fixed">
+        <joint name="gate_valve_base_to_world" type="fixed">
             <parent link="world"/>
             <child link="base"/>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </joint>
 
 
-        <!-- Needle Valve Base -->
+        <!-- Gate Valve Base -->
         <link name="base">
             <collision>
-                <origin xyz="0 0 0.01" rpy="-1.5708 0 -1.5708"/>
+                <origin xyz="0 0 0.05" rpy="0 0 0"/>
                 <geometry>
-                    <box size="0.065 0.05 0.03"/>
+                    <box size="0.13 0.13 0.24"/>
                 </geometry>
             </collision>
 
             <visual>
-                <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+                <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
                 <geometry>
-                    <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_base.dae"/>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/gate_valve/model/PN16_gate_valve_base.dae"/>
                 </geometry>
             </visual>
 
             <inertial>
-                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <origin xyz="0 0 ${height1/2}" rpy="-1.5708 0 0"/>
                 <mass value="${mass1}"/>
                 <inertia
                     ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
@@ -60,10 +60,10 @@
             </inertial>
         </link>
 
-        <joint name="needle_valve_handle_to_base" type="fixed">
+        <joint name="gate_valve_handle_to_base" type="fixed">
             <parent link="base"/>
             <child link="handle_zero"/>
-            <origin xyz="0 0 0.071" rpy="0 0 0"/>
+            <origin xyz="0 0 0.22" rpy="0 0 0"/>
         </joint>
 
         <link name="handle_zero">
@@ -77,9 +77,9 @@
             </inertial>
         </link>
 
-        <!-- Needle Valve Joint -->
+        <!-- Gate Valve Joint -->
         <xacro:if value="${continuous}">
-            <joint name="needle_valve_joint" type="continuous">
+            <joint name="gate_valve_joint" type="continuous">
                 <parent link="handle_zero"/>
                 <child link="handle"/>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -90,7 +90,7 @@
         </xacro:if>
 
         <xacro:unless value="${continuous}">
-            <joint name="needle_valve_joint" type="revolute">
+            <joint name="gate_valve_joint" type="revolute">
                 <parent link="handle_zero"/>
                 <child link="handle"/>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -100,43 +100,44 @@
             </joint>
         </xacro:unless>
 
-        <transmission name="needle_valve_trans">
+        <transmission name="gate_valve_trans">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="needle_valve_joint">
+            <joint name="gate_valve_joint">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
-            <actuator name="needle_valve_actuator">
+            <actuator name="gate_valve_actuator">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>
 
 
-        <!-- Needle Valve Handle -->
+        <!-- Gate Valve Handle -->
         <link name="handle">
             <collision>
-                <origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
+                <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
                 <geometry>
-                    <cylinder radius="0.0063" length="0.055"/>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/gate_valve/model/PN16_gate_valve_handle.dae"/>
                 </geometry>
             </collision>
 
             <visual>
-                <origin xyz="0 0 -0.071" rpy="-1.5708 0 0"/>
+                <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
                 <geometry>
-                    <mesh filename="package://manipulation_playground_articulated_devices/devices/needle_valve/model/needle_valve_handle.dae"/>
+                    <mesh filename="package://manipulation_playground_articulated_devices/devices/gate_valve/model/PN16_gate_valve_handle.dae"/>
                 </geometry>
             </visual>
 
             <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <origin xyz="0 0 -0.22" rpy="-1.5708 0 0"/>
                 <mass value="${mass2}"/>
                 <inertia
                     ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"
-                    iyy="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" iyz="0.0"
-                    izz="${mass2 / 2.0 * (radius2*radius2)}"/>
+                    iyy="${mass2 / 2.0 * (radius2*radius2)}" iyz="0.0"
+                    izz="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}"/>
             </inertial>
         </link>
     </xacro:macro>
 
-    <xacro:needle_valve continuous="$(arg continuous)" lower_limit="$(arg lower_limit)" upper_limit="$(arg upper_limit)"/>
+    <xacro:gate_valve continuous="$(arg continuous)" lower_limit="$(arg lower_limit)" upper_limit="$(arg upper_limit)"/>
 </robot>

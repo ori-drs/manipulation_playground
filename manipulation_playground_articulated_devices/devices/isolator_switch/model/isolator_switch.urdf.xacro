@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<!-- Actuated Isolator Switch -->
+<robot name="isolator_switch" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="isolator_switch">
+
+        <!-- Constants for Switch Dimensions -->
+        <!-- Base -->
+        <xacro:property name="width1" value="0.065"/>
+        <xacro:property name="height1" value="0.018"/>
+        <xacro:property name="mass1" value="0.1"/>
+
+
+        <!-- Head -->
+        <xacro:property name="length2" value="0.005"/>
+        <xacro:property name="radius2" value="0.026"/>
+        <xacro:property name="mass2" value="0.04"/>
+
+
+        <!-- Grip -->
+        <xacro:property name="length3" value="0.01"/>
+        <xacro:property name="width3" value="0.04"/>
+        <xacro:property name="height3" value="0.03"/>
+        <xacro:property name="mass3" value="0.05"/>
+
+
+        <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/isolator_switch/model/switch.gazebo" />
+        <!-- Import Rviz colors -->
+        <xacro:include filename="$(find manipulation_playground_articulated_devices)/devices/isolator_switch/model/materials.xacro" />
+
+
+        <!-- Used to fix device to world -->
+        <link name="world"/>
+
+        <joint name="switch_base_to_world" type="fixed">
+            <parent link="world"/>
+            <child link="base"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint>
+
+
+        <!-- Switch Base -->
+        <link name="base">
+            <collision>
+                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${width1} ${width1} ${height1}"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${width1} ${width1} ${height1}"/>
+                </geometry>
+                <material name="yellow"/>
+            </visual>
+
+            <inertial>
+                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <mass value="${mass1}"/>
+                <inertia
+                    ixx="${mass1 / 12.0 * (width1*width1 + height1*height1)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass1 / 12.0 * (height1*height1 + width1*width1)}" iyz="0.0"
+                    izz="${mass1 / 12.0 * (width1*width1 + width1*width1)}"/>
+            </inertial>
+        </link>
+
+        <joint name="switch_handle_to_base" type="fixed">
+            <parent link="base"/>
+            <child link="handle_zero"/>
+            <origin xyz="0 0 ${height1}" rpy="0 0 0"/>
+        </joint>
+
+        <link name="handle_zero">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="1" />
+                <inertia
+                ixx="1.0" ixy="0.0" ixz="0.0"
+                iyy="1.0" iyz="0.0"
+                izz="1.0" />
+            </inertial>
+        </link>
+
+        <!-- Switch Joint -->
+        <joint name="switch_joint" type="revolute">
+            <parent link="handle_zero"/>
+            <child link="handle"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0" friction="0.0" />
+            <limit effort="100" lower="0.0" upper="1.5707" velocity="0.5" />
+        </joint>
+
+        <transmission name="switch_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="switch_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="switch_actuator">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+
+        <!-- Switch Head -->
+        <link name="handle">
+            <collision>
+                <origin xyz="0 0 ${length2/2}" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="${radius2}" length="${length2}"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 ${length2/2}" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="${radius2}" length="${length2}"/>
+                </geometry>
+                <material name="red"/>
+            </visual>
+
+            <inertial>
+                <origin xyz="0 0 ${length2/2}" rpy="0 0 0"/>
+                <mass value="${mass2}"/>
+                <inertia
+                    ixx="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass2 / 12.0 * (3.0*radius2*radius2 + length2*length2)}" iyz="0.0"
+                    izz="${mass2 / 2.0 * (radius2*radius2)}"/>
+            </inertial>
+        </link>
+
+
+        <joint name="switch_head_to_grip" type="fixed">
+            <parent link="handle"/>
+            <child link="grip"/>
+            <origin xyz="0 ${radius2-width3/2} ${length2}" rpy="0 0 0"/>
+        </joint>
+
+
+        <!-- Switch Grip -->
+        <link name="grip">
+            <collision>
+                <origin xyz="0 0 ${height3/2}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${length3} ${width3} ${height3}"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${length3} ${width3} ${height3}"/>
+                </geometry>
+                <material name="red"/>
+            </visual>
+
+            <inertial>
+                <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+                <mass value="${mass1}"/>
+                <inertia
+                    ixx="${mass1 / 12.0 * (width3*width3 + height3*height3)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass1 / 12.0 * (height3*height3 + length3*length3)}" iyz="0.0"
+                    izz="${mass1 / 12.0 * (length3*length3 + width3*width3)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+    <xacro:isolator_switch/>
+</robot>

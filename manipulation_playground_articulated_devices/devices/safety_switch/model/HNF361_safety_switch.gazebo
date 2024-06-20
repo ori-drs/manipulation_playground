@@ -9,13 +9,13 @@
     </gazebo>
 
 
-    <!-- Needle Valve Base -->
+    <!-- Switch Base -->
     <gazebo reference="base">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
     </gazebo>
 
-    <!-- Needle Valve Handle -->
+    <!-- Switch Lever -->
     <gazebo reference="handle">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>

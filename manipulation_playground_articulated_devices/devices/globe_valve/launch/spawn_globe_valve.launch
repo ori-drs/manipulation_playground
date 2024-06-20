@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <!-- Globe Valve ID -->
+  <arg name="globe_valve_ID" default="0"/>
+
+  <!-- Pose for Spawn -->
+  <arg name="x" default="1.0"/>
+  <arg name="y" default="0.5"/>
+  <arg name="z" default="1.0"/>
+  <arg name="R" default="0.0"/>
+  <arg name="P" default="0.0"/>
+  <arg name="Y" default="0.0"/>
+
+  <!-- Dynamic Properties -->
+  <arg name="dynamics" default="none"/>
+  <arg name="continuous" default="true"/>
+  <arg name="lower_limit" default="-3.1415"/>
+  <arg name="upper_limit" default="3.1415"/>
+
+  <group ns="globe_valve">
+    <group ns="$(arg globe_valve_ID)">
+
+      <!-- Load globe_valve description file -->
+      <param name="robot_description" command="$(find xacro)/xacro $(find manipulation_playground_articulated_devices)/devices/globe_valve/model/globe_valve.urdf.xacro continuous:=$(arg continuous) lower_limit:=$(arg lower_limit) upper_limit:=$(arg upper_limit)"/>
+      <param name="tf_prefix" value="globe_valve/$(arg globe_valve_ID)" />
+
+      <!-- Spawn globe_valve -->
+      <node name="globe_valve_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+      args="-urdf -param robot_description -model globe_valve_$(arg globe_valve_ID) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg Y) -P $(arg P) -R $(arg R)"/>
+
+      <!-- State publisher -->
+      <node name="globe_valve_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="100.0"/>
+      </node>
+
+      <!-- Controllers -->
+      <rosparam file="$(find manipulation_playground_articulated_devices)/devices/globe_valve/controllers/globe_valve_controllers.yaml" command="load"/>
+      
+      <node name="globe_valve_controllers_spawner" pkg="controller_manager" type="controller_manager"
+      args="spawn globe_valve_joint_state_controller globe_valve_controller_$(arg dynamics)" respawn="false" output="screen"/>
+
+      <node name="globe_valve_controller_command_relay" pkg="topic_tools" type="relay" args="globe_valve_controller/command globe_valve_controller_$(arg dynamics)/command" />
+
+      <!-- Transform broadcaster -->
+      <node pkg="tf2_ros" type="static_transform_publisher" name="globe_valve_broadcaster" args="$(arg x) $(arg y) $(arg z) $(arg Y) $(arg P) $(arg R) odom globe_valve/$(arg globe_valve_ID)/world"/>
+    </group>
+  </group>
+
+</launch>
