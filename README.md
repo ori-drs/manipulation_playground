@@ -87,7 +87,7 @@ An example for spawning a safety switch is provided below:
 
 The switching behavior is simulated using a simple Python script that loads when the device is spawned and tracks its activation state based on the current position of its handle, setting a different controller command depending on the activation state. The current activation state is published to the device's `activation_state` topic.
 
-## Dynamic Dynamics
+## Device Dynamics
 
 The dynamic properties of a device can be set to 'none' (disabled), 'normal' (enabled) or 'stiff' (5x stronger than normal).
 
