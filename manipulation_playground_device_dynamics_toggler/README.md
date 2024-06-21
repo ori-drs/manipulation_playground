@@ -1,6 +1,6 @@
 # manipulation_playground/device_dynamics_toggler
 
-An (optional) package that allows for more realistic simulation of valves when their device dynamics are enabled. It is used to prevent valve handles from snapping back to their initial joint states when released, instead having them remain at their current positions.
+An (optional) package that allows for more realistic simulation of valves when their dynamic properties are enabled. It is used to prevent valve handles from snapping back to their initial joint states when released, instead having them remain at their current positions.
 
 If you want to use this functionality, run the following before manipulating any valves:
 
