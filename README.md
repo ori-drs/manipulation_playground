@@ -97,7 +97,7 @@ When the dynamic properties for a device are enabled, it essentially acts as spr
 
 A limitation of this approach is that the joint state will snap back to the initial joint state when the device handle is released; this makes sense for some devices (such as the switches) but not for others (such as the valves). Thus, to accurately simulate interactions such as tightening a valve with dynamic properties turned on, it is recommended to prevent the valve handle from snapping back to its initial joint state when released and instead having it remain at its current position.
 
-There are a few ways that this can be done; for example starting and stopping the device controllers at the appropriate times, or by changing the device controller command to the current joint state via ROS topic before releasing the valve handle. However, we provide an (optional) package for a simple [device dynamics toggler](manipulation_playground/device_dynamics_toggler) to make handling this easier.
+There are a few ways that this can be done; for example starting and stopping the device controllers at the appropriate times, or by changing the device controller command to the current joint state via ROS topic before releasing the valve handle. However, we provide an (optional) package for a simple [device dynamics toggler](device_dynamics_toggler) to make handling this easier.
 
 ## Publications
 
