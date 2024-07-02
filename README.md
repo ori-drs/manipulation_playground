@@ -103,17 +103,17 @@ There are a few ways that this can be done; for example starting and stopping th
 
 The manipulation playground was made as a benchmark for simulation tests in the following paper:
 
->Cloete J., Merkt W., Havoutis H. (2024) Adaptive Manipulation using Behavior Trees. *Under Review*
+>Cloete J., Merkt W., Havoutis H. (2024) Adaptive Manipulation using Behavior Trees. *Under Review*.
 
-If you use the manipulation playground for academic work, please cite the following:
+If you use the manipulation playground for academic work, please cite the following work, a preprint of which is available [here](https://doi.org/10.48550/arXiv.2406.14634):
 ```bibtex
 @misc{AdaptiveManipulation,
   title={Adaptive Manipulation using Behavior Trees}, 
   author={Jacques Cloete and Wolfgang Merkt and Ioannis Havoutis},
   year={2024},
-  eprint={tbc},
+  eprint={2406.14634},
   archivePrefix={arXiv},
-  note = {doi: tbc},
+  note = {doi: https://doi.org/10.48550/arXiv.2406.14634},
   primaryClass={cs.RO}
 }
 ```
